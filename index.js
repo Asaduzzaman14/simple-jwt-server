@@ -38,9 +38,16 @@ app.get('/', (req, res) => {
 
 app.post('/login', (req, res) => {
     const user = req.body
+
+    // DANGER : DO not check check hear for serius application
+
     if (user.password === '123456') {
 
-        const accesToken = jwt.sign({ email: user.email }, process.env.ACCESS_TOKEN, { expiresIn: '2h' })
+        const accesToken = jwt.sign({
+            email: user.email
+        },
+            process.env.ACCESS_TOKEN,
+            { expiresIn: '1h' })
 
         res.send({
             success: true,
@@ -48,10 +55,7 @@ app.post('/login', (req, res) => {
         })
     } else {
 
-        res.send({
-            success: false,
-
-        })
+        res.send({ success: false })
     }
 })
 
